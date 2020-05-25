@@ -14,10 +14,6 @@ include(${ROOT_USE_FILE})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${binFolder}/DreamModel)
 include_directories(${CMAKE_SOURCE_DIR} ${PROJECT_SOURCE_DIR} ${ROOT_INCLUDE_DIRS})
 add_definitions(${ROOT_CXX_FLAGS})
-SET(ROOFOLD "$ENV{ROOUNFOLD_ROOT}")
-
-include_directories(${CATS_INCLUDE})
-include_directories("${ROOFOLD}")
 include_directories(${PROJECT_SOURCE_DIR})
 
 set(SRCS
