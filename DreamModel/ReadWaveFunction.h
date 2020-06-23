@@ -98,6 +98,6 @@ static float Evaluate_d_w(double Radius) {
 }
 
 void TestDLMhisto() {
-  ReadDeuteronWF("/home/sbhawani/Downloads/Coalescence_Task/Script/TwoGaussian/WFS/deuwaves_n4lo500_rspace.d", huWF, hwWF);
+  ReadDeuteronWF("/home/sbhawani/Coalescence/WaveFunctions/WFChiEFT/deuwaves_n4lo500_rspace.d", huWF, hwWF);
 }
 

@@ -13,9 +13,9 @@ void Test() {
   std::cout << "Hello Buddy" << std::endl;
   const unsigned NumMomBins = 400;
   const double rMin = 0.08;
-  const double rMax = 10.0;
+  const double rMax = 6.0;
 
-  TString B2effplot = "B2kfir.pdf";
+  TString B2effplot = "NewHulthenCalculationB2kfir.pdf";
   TCanvas *binplot2 = new TCanvas("binplot2", "Graph Draw Options", 1000, 1000);
   binplot2->SetLeftMargin(0.1505);
   binplot2->SetRightMargin(0.035);
@@ -30,8 +30,11 @@ void Test() {
   grB2ChiEFT->SetName("grB2ChiEFT");
   grB2ChiEFT->Set(NumMomBins);
   TGraph *grB2Hulthen = new TGraph();
-  grB2Hulthen->SetName("grB2Hulthen");
+  grB2Hulthen->SetName("grB2Hulthen_Before");
   grB2Hulthen->Set(NumMomBins);
+  TGraph *grB2HulthenNew = new TGraph();
+  grB2HulthenNew->SetName("grB2HulthenNew");
+  grB2HulthenNew->Set(NumMomBins);
   TGraph *grB2Gauss = new TGraph();
   grB2Gauss->SetName("grB2Gauss");
   grB2Gauss->Set(NumMomBins);
@@ -47,8 +50,8 @@ void Test() {
   leg->SetLineColor(0);
 
   leg->AddEntry(grB2ChiEFT, "#it{B}_{2} Chiral EFT", "pef");
-  leg->AddEntry(grB2Hulthen, " #it{B}_{2} Hulthen", "pef");
-  //leg->AddEntry(B2mTTwoGauss_syst, "Two gaussians", "pef");
+  leg->AddEntry(grB2Hulthen, "#it{B}_{2} Hulthen My Calculation", "pef");
+  leg->AddEntry(grB2HulthenNew, "#it{B}_{2} Hulthen From Kfir", "pef");
   leg->AddEntry(grB2Gauss, "#it{B}_{2} Gaussian", "pef");
   leg->AddEntry(grB2Classical, "#it{B}_{2} Classical", "pef");
 
@@ -57,11 +60,13 @@ void Test() {
                          Gauss->GetB2ChiEFT(uMom));  //
     grB2Hulthen->SetPoint(uMom, Gauss->GetMomentum(uMom),
                           Gauss->GetB2Hulthen(uMom));  //
+    grB2HulthenNew->SetPoint(uMom, Gauss->GetMomentum(uMom),
+                              Gauss->GetB2_HulthenKfir(uMom));  //
     grB2Gauss->SetPoint(uMom, Gauss->GetMomentum(uMom),
                         Gauss->GetB2_kfir(uMom));  //
     grB2Classical->SetPoint(uMom, Gauss->GetMomentum(uMom),
                         Gauss->GetB2_Classical(uMom));  //
-    std::cout<<"B2_hulthen = "<< Gauss->GetB2Hulthen(uMom)<< "Radius ="<< Gauss->GetMomentum(uMom)<< std::endl;
+    std::cout<<"B2_hulthen = "<< Gauss->GetB2Hulthen(uMom)<<"B2_Classical = "<< Gauss->GetB2_Classical(uMom)<< "Radius ="<< Gauss->GetMomentum(uMom)<< std::endl;
   }
   grB2Hulthen->SetTitle("; #it{R} (fm); #it{B}_{2} (GeV^{2}/c^{3})");
   grB2Hulthen->GetXaxis()->SetLimits(0.08, 10.1);//our concern is R from 0.8 to 5 fm as we know that this range is most useful to study coalescence (available source size falls within this range :P)
@@ -69,17 +74,26 @@ void Test() {
 
   grB2Hulthen->SetMarkerColor(65 + 2);
   grB2Hulthen->SetLineColor(65 + 2);
+  grB2Hulthen->SetLineWidth(2);
+
+  grB2HulthenNew->SetMarkerColor(2);
+  grB2HulthenNew->SetLineColor(2);
+  grB2HulthenNew->SetLineWidth(2);
 
   grB2Gauss->SetMarkerColor(kYellow + 2);
   grB2Gauss->SetLineColor(kYellow + 2);
+  grB2Gauss->SetLineWidth(2);
 
   grB2ChiEFT->SetMarkerColor(kBlue + 2);
   grB2ChiEFT->SetLineColor(kBlue + 2);
+  grB2ChiEFT->SetLineWidth(2);
 
   grB2Classical->SetMarkerColor(kBlack + 0);
   grB2Classical->SetLineColor(kBlack + 0);
+  grB2Classical->SetLineWidth(2);
 
   grB2Hulthen->Draw("ALP");
+  grB2HulthenNew->Draw("same");
   grB2Gauss->Draw("same");
   grB2ChiEFT->Draw("same");
   grB2Classical->Draw("same");

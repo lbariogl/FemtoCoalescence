@@ -44,6 +44,7 @@ class Model {
   double GetWaveFunction(const unsigned &WhichMomBin);
   double GetB2_Classical(const unsigned &WhichMomBin);
   double GetB2_kfir(const unsigned &WhichMomBin);
+  double GetB2_HulthenKfir(const unsigned &WhichMomBin);
   double GetB2Hulthen(const unsigned &WhichMomBin);
   double GetB2TwoGaussian(const unsigned &WhichMomBin);
   double GetB2ChiEFT(const unsigned &WhichMomBin);

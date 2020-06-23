@@ -36,4 +36,5 @@ target_link_libraries(DreamModel ${ROOT_LIBRARIES})
 
 add_executable(excuteTest ${PROJECT_SOURCE_DIR}/Scripts/ExecuteTest.C)
 target_link_libraries(excuteTest DreamModel)
-
+add_executable(excutePdWF ${PROJECT_SOURCE_DIR}/Scripts/ExecuteDrawPdWF.C)
+target_link_libraries(excutePdWF DreamModel)
